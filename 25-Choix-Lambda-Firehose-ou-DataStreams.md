@@ -2,7 +2,7 @@
 
 Dans la conception d'architectures de pipeline de données sur AWS, il est essentiel de choisir les services appropriés en fonction des besoins spécifiques de traitement, d'ingestion, de transformation et de livraison des données. Voici un aperçu des scénarios typiques où chaque service est le plus adapté :
 
-## 🎯 Arbre de Décision : Lambda vs Firehose vs Data Streams
+## 1. Arbre de Décision : Lambda vs Firehose vs Data Streams
 
 ```mermaid
 graph TD

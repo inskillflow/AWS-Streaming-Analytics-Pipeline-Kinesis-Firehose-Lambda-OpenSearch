@@ -62,8 +62,12 @@ STRUCTURE DE LA FORMATION
 │   └── CORRIGES-QCM.md
 │
 └── QUESTIONS-DEVELOPPEMENT/
-    ├── QUESTIONS-MODULE-01.md (5 questions ouvertes)
-    └── QUESTIONS-MODULES-02-06.md (10 questions ouvertes)
+    ├── DEV-MODULE-01-Architecture.md (2 questions - 20 pts)
+    ├── DEV-MODULE-02-Kinesis.md (2 questions - 20 pts)
+    ├── DEV-MODULE-03-Lambda.md (2 questions - 20 pts)
+    ├── DEV-MODULE-04-OpenSearch.md (2 questions - 20 pts)
+    ├── DEV-MODULE-05-Securite.md (2 questions - 20 pts)
+    └── DEV-MODULE-06-Comparaisons.md (2 questions - 20 pts)
 
 03-RESSOURCES/
 │

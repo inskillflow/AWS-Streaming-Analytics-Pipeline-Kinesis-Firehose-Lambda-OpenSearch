@@ -37,38 +37,56 @@ COMPROMIS : Moins de flexibilité que Kafka
 2. KINESIS DATA STREAMS
 ================================================================================
 
-2.1 Architecture et Concepts
------------------------------
+### 2.1 Architecture et Concepts
 
-DEFINITION :
-Service de streaming distribué permettant la collecte et le traitement de
-données en temps réel avec rétention.
+> **Définition** : Service de streaming distribué permettant la collecte et le traitement de données en temps réel avec rétention.
 
-COMPOSANTS :
+```mermaid
+graph TB
+    subgraph "KINESIS DATA STREAMS"
+        subgraph "STREAM"
+            S1[Shard 1<br/>1 MB/s write<br/>2 MB/s read]
+            S2[Shard 2<br/>1 MB/s write<br/>2 MB/s read]
+            S3[Shard 3<br/>1 MB/s write<br/>2 MB/s read]
+            S4[Shard N<br/>...]
+        end
+    end
+    
+    subgraph "PRODUCERS"
+        P1[SDK AWS]
+        P2[Agent Kinesis]
+        P3[API PutRecord]
+    end
+    
+    subgraph "CONSUMERS"
+        C1[Lambda]
+        C2[KCL App]
+        C3[Firehose]
+    end
+    
+    P1 -->|Records| S1
+    P2 -->|Records| S2
+    P3 -->|Records| S3
+    
+    S1 -->|Read| C1
+    S2 -->|Read| C2
+    S3 -->|Read| C3
+    
+    style S1 fill:#8c4fff
+    style S2 fill:#8c4fff
+    style S3 fill:#8c4fff
+    style S4 fill:#8c4fff
+```
 
-STREAM
-- Ensemble de shards
-- Point d'entrée des données
-- Nommage unique par région
+#### Composants Clés
 
-SHARD
-- Unité de capacité de traitement
-- Capacité : 1 MB/s ou 1000 records/s en écriture
-- Capacité : 2 MB/s en lecture
-- Evolutivité : ajouter/supprimer shards
-
-RECORD
-- Unité de données dans le stream
-- Structure : clé de partition, numéro de séquence, blob de données
-- Taille max : 1 MB
-
-PRODUCER
-- Application qui écrit dans le stream
-- SDK AWS, Agent Kinesis, API PutRecord
-
-CONSUMER
-- Application qui lit depuis le stream
-- KCL (Kinesis Client Library), Lambda, Firehose
+| Composant | Description | Spécifications |
+|-----------|-------------|----------------|
+| **STREAM** | Ensemble de shards | Point d'entrée, nommage unique/région |
+| **SHARD** | Unité de capacité | Write: 1 MB/s ou 1000 records/s<br/>Read: 2 MB/s |
+| **RECORD** | Unité de données | Max 1 MB, structure: clé partition + séquence + data |
+| **PRODUCER** | Écrit dans stream | SDK, Agent, API |
+| **CONSUMER** | Lit depuis stream | Lambda, KCL, Firehose |
 
 
 2.2 Caractéristiques Techniques
@@ -208,40 +226,62 @@ Logs Apache → Firehose → Lambda (enrichissement géoloc) → OpenSearch
 4. COMPARAISON DATA STREAMS VS DATA FIREHOSE
 ================================================================================
 
-4.1 Tableau Comparatif
-----------------------
+### 4.1 Tableau Comparatif
 
-CRITERE               | DATA STREAMS      | DATA FIREHOSE
-----------------------|-------------------|---------------------------
-Gestion               | Semi-managé       | Entièrement managé
-Provisionnement       | Shards manuels    | Automatique
-Latence               | < 1 seconde       | 60+ secondes
-Rétention             | 24h - 365j        | Aucune
-Consommateurs         | Multiples         | Destination unique
-Rejoue données        | Oui               | Non
-Code consommateur     | Requis            | Non requis
-Destinations          | Flexible          | Prédéfinies (S3, etc.)
-Transformation        | Via consommateur  | Lambda intégré
-Complexité            | Moyenne-élevée    | Faible
-Coût                  | Basé sur shards   | Basé sur volume
+| Critère | **DATA STREAMS** | **DATA FIREHOSE** |
+|---------|------------------|-------------------|
+| **Gestion** | Semi-managé | ✅ Entièrement managé |
+| **Provisionnement** | Shards manuels | ✅ Automatique |
+| **Latence** | ✅ < 1 seconde | 60+ secondes |
+| **Rétention** | ✅ 24h - 365j | ❌ Aucune |
+| **Consommateurs** | ✅ Multiples | Destination unique |
+| **Rejoue données** | ✅ Oui | ❌ Non |
+| **Code consommateur** | Requis | ✅ Non requis |
+| **Destinations** | ✅ Flexible | Prédéfinies (S3, etc.) |
+| **Transformation** | Via consommateur | ✅ Lambda intégré |
+| **Complexité** | Moyenne-élevée | ✅ Faible |
+| **Coût** | Basé sur shards | Basé sur volume |
 
+### 4.2 Arbre de Décision
 
-4.2 Arbre de Décision
----------------------
+```mermaid
+graph TD
+    Start{Quel est votre<br/>cas d'usage?}
+    
+    Start -->|Latence < 1s<br/>requise| Q1{Multiples<br/>consommateurs?}
+    Start -->|Latence 60s+<br/>acceptable| Q2{Transformation<br/>nécessaire?}
+    
+    Q1 -->|Oui| DS[DATA STREAMS<br/>✅ Latence faible<br/>✅ Multi-consumers<br/>✅ Replay possible]
+    Q1 -->|Non| Q3{Besoin<br/>rejouer données?}
+    
+    Q3 -->|Oui| DS
+    Q3 -->|Non| DF[DATA FIREHOSE<br/>✅ Simple<br/>✅ Managé<br/>✅ Destinations directes]
+    
+    Q2 -->|Oui, complexe| DS
+    Q2 -->|Non ou légère| Q4{Destination<br/>supportée?}
+    
+    Q4 -->|S3/Redshift/<br/>OpenSearch| DF
+    Q4 -->|Autre| DS
+    
+    style DS fill:#8c4fff,color:#fff
+    style DF fill:#ff9900,color:#fff
+```
 
-CHOISIR DATA STREAMS SI :
-[+] Latence < 1 seconde requise
-[+] Plusieurs consommateurs avec logiques différentes
-[+] Besoin de rejouer les données
-[+] Traitement complexe personnalisé
-[+] Contrôle fin du flux de données
+#### Quand choisir DATA STREAMS ?
 
-CHOISIR DATA FIREHOSE SI :
-[+] Livraison simple vers S3/Redshift/OpenSearch
-[+] Pas d'expertise en systèmes distribués
-[+] Near real-time suffisant (60s latence)
-[+] Transformation Lambda légère
-[+] Focus sur simplicité opérationnelle
+✅ Latence < 1 seconde requise  
+✅ Plusieurs consommateurs avec logiques différentes  
+✅ Besoin de rejouer les données  
+✅ Traitement complexe personnalisé  
+✅ Contrôle fin du flux de données
+
+#### Quand choisir DATA FIREHOSE ?
+
+✅ Livraison simple vers S3/Redshift/OpenSearch  
+✅ Pas d'expertise en systèmes distribués  
+✅ Near real-time suffisant (60s latence)  
+✅ Transformation Lambda légère  
+✅ Focus sur simplicité opérationnelle
 
 
 4.3 Architecture Combinée

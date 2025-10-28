@@ -1,31 +1,30 @@
-================================================================================
-                            MODULE 1
-              ARCHITECTURE DE STREAMING AWS
-================================================================================
+# MODULE 1 - ARCHITECTURE DE STREAMING AWS
 
 **Durée** : 45 minutes  
 **Niveau** : Fondamental  
 **Objectifs** : Maîtriser les concepts de base du streaming et l'architecture AWS
 
-================================================================================
-## 1. INTRODUCTION AU STREAMING DE DONNEES
-================================================================================
 
-### 1.1 Les Cinq V des Mégadonnées
+# 1. INTRODUCTION AU STREAMING DE DONNEES
+
+## 1.1 Les Cinq V des Mégadonnées
 
 ```mermaid
 graph TB
-    subgraph "Les 5 V du Big Data"
-        A[Volume<br/>Quantité massive]
-        B[Variété<br/>Formats divers]
-        C[Vélocité<br/>Rapidité temps réel]
-        D[Véracité<br/>Qualité données]
-        E[Valeur<br/>Insights exploitables]
-    end
+    A[Volume<br/>Quantité massive]
+    B[Variété<br/>Formats divers]
+    C[Vélocité<br/>Rapidité temps réel]
+    D[Véracité<br/>Qualité données]
+    E[Valeur<br/>Insights exploitables]
+    
     C -.->|Focus Streaming| F[SOLUTION<br/>Architecture<br/>Temps Réel]
     
-    style C fill:#ff6b6b
-    style F fill:#51cf66
+    style A fill:#2c3e50,stroke:#34495e,stroke-width:2px,color:#ecf0f1
+    style B fill:#2c3e50,stroke:#34495e,stroke-width:2px,color:#ecf0f1
+    style C fill:#e74c3c,stroke:#c0392b,stroke-width:3px,color:#fff
+    style D fill:#2c3e50,stroke:#34495e,stroke-width:2px,color:#ecf0f1
+    style E fill:#2c3e50,stroke:#34495e,stroke-width:2px,color:#ecf0f1
+    style F fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
 ```
 
 | V | Description | Impact Streaming |
@@ -39,24 +38,26 @@ graph TB
 > **Point clé** : Le streaming répond spécifiquement au défi de la VELOCITE.
 
 
-### 1.2 Streaming vs Traitement Batch
+## 1.2 Streaming vs Traitement Batch
 
 ```mermaid
 graph LR
-    subgraph "STREAMING - Temps Réel"
+    subgraph "STREAMING"
         A[Données<br/>arrivent] -->|< 1s| B[Traitement<br/>immédiat]
         B --> C[Résultats<br/>instantanés]
     end
     
-    subgraph "BATCH - Par Lots"
+    subgraph "BATCH"
         D[Données<br/>accumulées] -->|Heures/Jours| E[Traitement<br/>périodique]
         E --> F[Rapports<br/>différés]
     end
     
-    style B fill:#4ecdc4
-    style C fill:#51cf66
-    style E fill:#ffd93d
-    style F fill:#ff6b6b
+    style A fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style B fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style C fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+    style D fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style E fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+    style F fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
 ```
 
 | Critère | STREAMING (Temps Réel) | BATCH (Par Lots) |
@@ -68,12 +69,11 @@ graph LR
 | **Technos** | Kinesis, Kafka, Flink | Spark Batch, EMR, Glue |
 
 
-================================================================================
-2. SERVICES AWS POUR LE STREAMING
-================================================================================
+---
 
-2.1 Amazon EC2 - Elastic Compute Cloud
----------------------------------------
+# 2. SERVICES AWS POUR LE STREAMING
+
+## 2.1 Amazon EC2 - Elastic Compute Cloud
 
 ROLE : Héberger les applications sources de données
 - Serveurs web générant des logs
@@ -162,44 +162,47 @@ CARACTERISTIQUES :
 - Traçabilité du pipeline
 
 
-================================================================================
-## 3. ARCHITECTURE DE REFERENCE
-================================================================================
+---
 
-### 3.1 Workflow Complet
+# 3. ARCHITECTURE DE REFERENCE
+
+## 3.1 Workflow Complet
 
 ```mermaid
 flowchart TB
-    subgraph "GENERATION"
+    subgraph GENERATION["GENERATION"]
         U[👤 Utilisateur] -->|HTTP| EC2[EC2<br/>Serveur Web]
         EC2 -->|Logs| AG[Agent<br/>Kinesis]
     end
     
-    subgraph "COLLECTE & TRANSFORMATION"
+    subgraph TRANSFORMATION["COLLECTE & TRANSFORMATION"]
         AG -->|Stream| KDF[Kinesis<br/>Data Firehose]
         KDF -->|Trigger| L[Lambda<br/>Enrichissement]
         L -->|Données<br/>enrichies| KDF
     end
     
-    subgraph "STOCKAGE & ANALYSE"
+    subgraph STOCKAGE["STOCKAGE & ANALYSE"]
         KDF -->|Index| OS[OpenSearch<br/>Service]
         OS -->|Query| OSD[OpenSearch<br/>Dashboards]
     end
     
-    subgraph "SECURITE & MONITORING"
+    subgraph SECURITE["SECURITE & MONITORING"]
         COG[Cognito<br/>Auth] -->|Accès| OSD
         CW[CloudWatch<br/>Logs] -.->|Monitor| KDF
         CW -.->|Monitor| L
         IAM[IAM<br/>Policies] -.->|Control| EC2
     end
     
-    style EC2 fill:#ff9900
-    style KDF fill:#8c4fff
-    style L fill:#ff9900
-    style OS fill:#4b8bbe
-    style OSD fill:#4b8bbe
-    style COG fill:#dd344c
-    style CW fill:#cc2264
+    style U fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style EC2 fill:#e67e22,stroke:#d35400,stroke-width:2px,color:#fff
+    style AG fill:#95a5a6,stroke:#7f8c8d,color:#2c3e50
+    style KDF fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+    style L fill:#e67e22,stroke:#d35400,stroke-width:2px,color:#fff
+    style OS fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style OSD fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style COG fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    style CW fill:#e91e63,stroke:#c2185b,stroke-width:2px,color:#fff
+    style IAM fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
 ```
 
 
@@ -275,12 +278,11 @@ graph TD
 | **VPC** | Isolation réseau | Security Groups | Principe zero-trust |
 
 
-================================================================================
-4. CAS D'USAGE METIER
-================================================================================
+---
 
-4.1 Analyse de Logs Web
------------------------
+# 4. CAS D'USAGE METIER
+
+## 4.1 Analyse de Logs Web
 
 PROBLEMATIQUE :
 Comprendre le comportement des visiteurs sans scripts tiers bloqués
@@ -313,9 +315,9 @@ Clics utilisateur → Kinesis → Lambda (calcul recommandations)
                             → OpenSearch (historique recherche)
 
 
-================================================================================
-5. CONCEPTS CLES A RETENIR
-================================================================================
+---
+
+# 5. CONCEPTS CLES A RETENIR
 
 PIPELINE DE STREAMING
 - Architecture orientée événements
@@ -342,9 +344,9 @@ SECURITE PAR CONCEPTION
 - Encryption bout en bout
 
 
-================================================================================
-6. EXERCICES DE REFLEXION
-================================================================================
+---
+
+# 6. EXERCICES DE REFLEXION
 
 1. Pourquoi utiliser Kinesis Firehose plutôt que stocker directement dans S3 
    depuis EC2 ?
@@ -359,9 +361,9 @@ SECURITE PAR CONCEPTION
 5. Quelles métriques CloudWatch sont critiques pour surveiller ce pipeline ?
 
 
-================================================================================
-POINTS CLES DU MODULE
-================================================================================
+---
+
+# POINTS CLES DU MODULE
 
 - Le streaming répond aux besoins de traitement temps réel (vélocité)
 - AWS offre des services managés pour chaque étape du pipeline
@@ -372,14 +374,12 @@ POINTS CLES DU MODULE
 - CloudWatch assure l'observabilité du système
 
 
-================================================================================
-RESSOURCES COMPLEMENTAIRES
-================================================================================
+---
+
+# RESSOURCES COMPLEMENTAIRES
 
 - AWS Kinesis Documentation
 - OpenSearch Service Best Practices
 - Lambda Streaming Use Cases
 - CloudWatch Logs Insights
-
-================================================================================
 

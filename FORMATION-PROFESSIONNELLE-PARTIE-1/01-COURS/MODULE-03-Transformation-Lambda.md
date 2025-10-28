@@ -115,25 +115,49 @@ CHAMPS INITIAUX :
 - agent (user-agent string)
 
 
-3.2 Enrichissements Lambda
----------------------------
+### 3.2 Enrichissements Lambda
 
-GEOLOCALISATION :
-- Input : IP (203.0.113.42)
-- Lookup : Base GeoIP (MaxMind)
-- Output : city, country, latitude, longitude
+```mermaid
+graph LR
+    subgraph "INPUT - Log Brut"
+        A[IP: 203.0.113.42<br/>User-Agent: Mozilla/5.0...<br/>URL: /product.php<br/>Referer: /search.php]
+    end
+    
+    subgraph "ENRICHISSEMENT LAMBDA"
+        B[GeoIP<br/>Lookup]
+        C[User-Agent<br/>Parser]
+        D[URL<br/>Parser]
+    end
+    
+    subgraph "OUTPUT - Log Enrichi"
+        E[IP + City + Country<br/>+ Coordinates<br/>+ OS + Browser<br/>+ Page + Referer]
+    end
+    
+    A --> B
+    A --> C
+    A --> D
+    B --> E
+    C --> E
+    D --> E
+    
+    style A fill:#ff6b6b
+    style E fill:#51cf66
+    style B fill:#4ecdc4
+    style C fill:#4ecdc4
+    style D fill:#4ecdc4
+```
 
-APPAREIL ET NAVIGATEUR :
-- Input : User-Agent string
-- Parsing : Bibliothèque user-agent parser
-- Output : os (Windows 10), browser (Chrome), device_type (desktop)
+#### Détail des Enrichissements
 
-PAGE ET REFERRER :
-- Extraction : Nom page depuis URL
-- Parsing : Page de référence
-- Output : webpage (product), refering_page (search)
+| Type | Input | Processing | Output |
+|------|-------|------------|--------|
+| **GEOLOCALISATION** | IP (203.0.113.42) | Base GeoIP (MaxMind) | `city`, `country`, `lat`, `lon` |
+| **APPAREIL** | User-Agent string | User-agent parser | `os` (Windows 10), `browser` (Chrome), `device_type` (desktop) |
+| **NAVIGATION** | URL + Referer | URL parsing | `webpage` (product), `refering_page` (search) |
 
-RESULTAT ENRICHI :
+#### Résultat Enrichi
+
+```json
 {
   "host": "203.0.113.42",
   "datetime": "28/Oct/2025:10:15:30 +0000",
@@ -150,6 +174,7 @@ RESULTAT ENRICHI :
   "webpage": "product",
   "refering_page": "search"
 }
+```
 
 
 3.3 Code Lambda - Structure

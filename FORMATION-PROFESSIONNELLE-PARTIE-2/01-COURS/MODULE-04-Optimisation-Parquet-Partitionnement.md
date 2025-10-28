@@ -12,20 +12,43 @@
 
 ```mermaid
 graph TB
-    subgraph ROW["FORMATS ROW-BASED (CSV, JSON)"]
-        R1[Row 1: id=1, name=John, age=25]
-        R2[Row 2: id=2, name=Jane, age=30]
-        R3[Row 3: id=3, name=Bob, age=35]
+    subgraph STORAGE["STOCKAGE DES DONNEES"]
+        subgraph ROW["ROW-BASED (CSV, JSON)"]
+            R1["Row 1: id=1, name=John, age=25, city=Paris"]
+            R2["Row 2: id=2, name=Jane, age=30, city=Lyon"]
+            R3["Row 3: id=3, name=Bob, age=35, city=Nice"]
+        end
+        
+        subgraph COL["COLUMNAR (Parquet, ORC)"]
+            C1["Column ID<br/>━━━━━━<br/>1<br/>2<br/>3"]
+            C2["Column NAME<br/>━━━━━━<br/>John<br/>Jane<br/>Bob"]
+            C3["Column AGE<br/>━━━━━━<br/>25<br/>30<br/>35"]
+            C4["Column CITY<br/>━━━━━━<br/>Paris<br/>Lyon<br/>Nice"]
+        end
     end
     
-    subgraph COL["FORMATS COLUMNAR (Parquet, ORC)"]
-        C1[Column id: 1, 2, 3]
-        C2[Column name: John, Jane, Bob]
-        C3[Column age: 25, 30, 35]
+    subgraph QUERY["REQUETE SQL : SELECT AVG(age) FROM table"]
+        direction LR
+        QR["ROW-BASED<br/>━━━━━━━━━<br/>✗ Lit TOUT<br/>✗ 4 colonnes × 3 rows<br/>✗ 12 valeurs"]
+        QC["COLUMNAR<br/>━━━━━━━━━<br/>✓ Lit AGE uniquement<br/>✓ 1 colonne<br/>✓ 3 valeurs<br/>━━━━━━━━━<br/>4x PLUS RAPIDE"]
     end
     
-    style ROW fill:#e74c3c,stroke:#c0392b,color:#fff
+    R1 -.->|Scan| QR
+    R2 -.->|Scan| QR
+    R3 -.->|Scan| QR
+    C3 ==>|Lecture directe| QC
+    
+    style ROW fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
     style COL fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+    style R1 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style R2 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style R3 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style C1 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style C2 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style C3 fill:#f39c12,stroke:#e67e22,stroke-width:4px,color:#fff
+    style C4 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style QR fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    style QC fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
 ```
 
 ### Tableau Comparatif

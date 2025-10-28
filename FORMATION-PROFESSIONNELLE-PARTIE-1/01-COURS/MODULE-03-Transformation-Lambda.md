@@ -112,18 +112,18 @@ CHAMPS INITIAUX :
 
 ```mermaid
 graph LR
-    subgraph "INPUT - Log Brut"
-        A[IP: 203.0.113.42<br/>User-Agent: Mozilla/5.0...<br/>URL: /product.php<br/>Referer: /search.php]
+    subgraph INPUT["LOG BRUT"]
+        A["IP: 203.0.113.42<br/>User-Agent: Mozilla/5.0...<br/>URL: /product.php<br/>Referer: /search.php"]
     end
     
-    subgraph "ENRICHISSEMENT LAMBDA"
-        B[GeoIP<br/>Lookup]
-        C[User-Agent<br/>Parser]
-        D[URL<br/>Parser]
+    subgraph ENRICH["ENRICHISSEMENT LAMBDA"]
+        B[GeoIP<br/>Lookup<br/>━━━━━<br/>IP → Ville]
+        C[User-Agent<br/>Parser<br/>━━━━━<br/>UA → OS, Browser]
+        D[URL<br/>Parser<br/>━━━━━<br/>URL → Page]
     end
     
-    subgraph "OUTPUT - Log Enrichi"
-        E[IP + City + Country<br/>+ Coordinates<br/>+ OS + Browser<br/>+ Page + Referer]
+    subgraph OUTPUT["LOG ENRICHI"]
+        E["IP : 203.0.113.42<br/>City : Paris<br/>Country : France<br/>Lat/Lon : 48.85, 2.35<br/>OS : Windows<br/>Browser : Chrome<br/>Page : product<br/>Referer : search"]
     end
     
     A --> B
@@ -133,11 +133,11 @@ graph LR
     C --> E
     D --> E
     
-    style A fill:#ff6b6b
-    style E fill:#51cf66
-    style B fill:#4ecdc4
-    style C fill:#4ecdc4
-    style D fill:#4ecdc4
+    style A fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    style E fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
+    style B fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style C fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style D fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
 ```
 
 #### Détail des Enrichissements

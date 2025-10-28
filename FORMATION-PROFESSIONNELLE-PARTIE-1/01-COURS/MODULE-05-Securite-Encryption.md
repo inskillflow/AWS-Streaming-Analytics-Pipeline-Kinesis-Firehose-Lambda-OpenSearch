@@ -70,7 +70,9 @@ POLITIQUES :
 2.2 Structure Politique IAM
 ----------------------------
 
-FORMAT :
+**Format** :
+
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -84,6 +86,7 @@ FORMAT :
     }
   ]
 }
+```
 
 ELEMENTS :
 - Effect : Allow ou Deny

@@ -1,16 +1,13 @@
-================================================================================
-                 QUESTIONS DE DEVELOPPEMENT - MODULE 1
-              ARCHITECTURE DE STREAMING AWS
-================================================================================
+# QUESTIONS DE DÉVELOPPEMENT - MODULE 1
+## ARCHITECTURE DE STREAMING AWS
 
-Durée recommandée : 60 minutes
-Format : Réponses rédigées (200-400 mots par question)
-Évaluation : Compréhension, analyse, synthèse
+> **Durée recommandée** : 60 minutes  
+> **Format** : Réponses rédigées (200-400 mots par question)  
+> **Évaluation** : Compréhension, analyse, synthèse
 
-================================================================================
+---
 
-QUESTION 1 - ANALYSE ARCHITECTURALE (10 points)
---------------------------------------------------------------------------------
+## QUESTION 1 - ANALYSE ARCHITECTURALE (10 points)
 
 Une entreprise de e-commerce génère actuellement 50 000 événements par seconde
 (clics, ajouts panier, achats). Ces données doivent être :
@@ -29,10 +26,8 @@ c) Les avantages de cette architecture par rapport à une solution batch
 d) Les points d'attention pour assurer la scalabilité
 
 
-================================================================================
 
-QUESTION 2 - COMPARAISON APPROCHES (8 points)
---------------------------------------------------------------------------------
+## QUESTION 2 - COMPARAISON APPROCHES (8 points)
 
 Comparez deux approches pour l'analyse de logs d'un site web générant 1 GB de
 logs par jour :
@@ -50,10 +45,8 @@ c) Coûts estimés (infrastructure + opérationnel)
 d) Cas d'usage où chaque approche serait préférable
 
 
-================================================================================
 
-QUESTION 3 - RESOLUTION DE PROBLEME (7 points)
---------------------------------------------------------------------------------
+## QUESTION 3 - RESOLUTION DE PROBLEME (7 points)
 
 Une application mobile envoie des événements utilisateur vers un pipeline :
 Mobile App → API Gateway → Lambda → Kinesis Firehose → OpenSearch
@@ -69,10 +62,8 @@ c) Pour chaque solution, évaluez les trade-offs (coût, complexité, risques)
 d) Recommandez la solution optimale avec justification
 
 
-================================================================================
 
-QUESTION 4 - CONCEPTION SECURISEE (8 points)
---------------------------------------------------------------------------------
+## QUESTION 4 - CONCEPTION SECURISEE (8 points)
 
 Vous devez concevoir une architecture streaming pour une application de santé
 traitant des données médicales sensibles (HIPAA compliance requis).
@@ -92,10 +83,9 @@ c) Stratégie d'encryption (transit et repos)
 d) Mécanismes d'audit et de conformité
 
 
-================================================================================
 
 QUESTION 5 - OPTIMISATION (7 points)
---------------------------------------------------------------------------------
+---
 
 Une startup utilise l'architecture suivante :
 EC2 (logs) → Kinesis Firehose → Lambda (enrichissement) → OpenSearch
@@ -113,10 +103,8 @@ c) Évaluez l'impact de chaque optimisation sur les performances et fonctionnali
 d) Chiffrez l'économie totale potentielle et validez l'objectif de 30%
 
 
-================================================================================
 
 INSTRUCTIONS GENERALES
-================================================================================
 
 CRITERES D'EVALUATION :
 
@@ -159,5 +147,4 @@ BAREME :
 10-11 : Passable - Connaissances de base, manque de profondeur
 < 10  : Insuffisant - Lacunes importantes
 
-================================================================================
 

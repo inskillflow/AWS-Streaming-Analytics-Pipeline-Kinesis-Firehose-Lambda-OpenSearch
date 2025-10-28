@@ -142,6 +142,7 @@ ETATS CLUSTER :
 --------------------
 
 API REST :
+```http
 PUT /apache_logs
 {
   "settings": {
@@ -162,6 +163,7 @@ PUT /apache_logs
     }
   }
 }
+```
 
 
 3.2 Insertion de Documents
@@ -194,23 +196,31 @@ Bulk recommandé pour performance (batches de 1000-5000 documents).
 3.3 Recherche et Requêtes
 --------------------------
 
-MATCH QUERY (full-text) :
+**MATCH QUERY (full-text)** :
+
+```http
 GET /apache_logs/_search
 {
   "query": {
     "match": {"browser": "Chrome"}
   }
 }
+```
 
-TERM QUERY (exact) :
+**TERM QUERY (exact)** :
+
+```http
 GET /apache_logs/_search
 {
   "query": {
     "term": {"response": "404"}
   }
 }
+```
 
-RANGE QUERY :
+**RANGE QUERY** :
+
+```http
 GET /apache_logs/_search
 {
   "query": {
@@ -222,12 +232,15 @@ GET /apache_logs/_search
     }
   }
 }
+```
 
 
 3.4 Agrégations
 ---------------
 
-TERMS AGGREGATION (groupement) :
+**TERMS AGGREGATION (groupement)** :
+
+```http
 GET /apache_logs/_search
 {
   "size": 0,
@@ -237,18 +250,24 @@ GET /apache_logs/_search
     }
   }
 }
+```
 
-Résultat : top 10 navigateurs avec comptage.
+> **Résultat** : top 10 navigateurs avec comptage.
 
-DATE HISTOGRAM :
-"aggs": {
-  "requests_over_time": {
-    "date_histogram": {
-      "field": "datetime",
-      "interval": "1h"
+**DATE HISTOGRAM** :
+
+```json
+{
+  "aggs": {
+    "requests_over_time": {
+      "date_histogram": {
+        "field": "datetime",
+        "interval": "1h"
+      }
     }
   }
 }
+```
 
 
 4. OPENSEARCH DASHBOARDS

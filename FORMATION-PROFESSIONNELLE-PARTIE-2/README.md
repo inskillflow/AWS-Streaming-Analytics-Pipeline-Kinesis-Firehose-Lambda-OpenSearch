@@ -181,9 +181,4 @@ graph LR
 - PARTIE 1 : Collection, Processing (streaming)
 - PARTIE 2 : Storage, Analysis (batch)
 
----
-
-**Version** : 1.0 Professionnelle  
-**Date** : Octobre 2025  
-**Format** : Minimaliste, sans emojis, GitHub-ready
 

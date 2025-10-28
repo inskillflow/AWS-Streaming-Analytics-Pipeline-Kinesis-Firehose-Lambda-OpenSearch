@@ -357,7 +357,4 @@ Pour toute question sur cette formation :
 
 ---
 
-**Version** : 1.0 Professionnelle Finale  
-**Dernière mise à jour** : Octobre 2025  
-**Format** : Minimaliste, sans emojis, GitHub-ready
 

@@ -314,7 +314,4 @@ Données temps réel → Kinesis → Lambda → OpenSearch (dashboards live)
 
 ---
 
-**Version** : 1.0 Complète  
-**Date** : Octobre 2025  
-**Format** : Professionnel, minimaliste, sans emojis
 

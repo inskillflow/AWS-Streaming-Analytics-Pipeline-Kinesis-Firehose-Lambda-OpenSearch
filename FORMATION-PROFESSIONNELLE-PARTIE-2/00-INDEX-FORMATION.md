@@ -171,6 +171,4 @@ FORMATION-PROFESSIONNELLE-PARTIE-2/
 
 ---
 
-**Dernière mise à jour** : Octobre 2025  
-**Auteur** : Formation Data Engineering AWS
 

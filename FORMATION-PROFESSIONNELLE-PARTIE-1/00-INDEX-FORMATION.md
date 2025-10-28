@@ -3,9 +3,6 @@
               INGENIERIE DES DONNEES - STREAMING AWS
 ================================================================================
 
-Version : 1.0 Professionnelle
-Date : Octobre 2025
-Format : Condensé et minimaliste
 
 ================================================================================
 PRESENTATION
@@ -336,9 +333,6 @@ Pour toute question concernant cette formation :
 VERSION ET MISE A JOUR
 ================================================================================
 
-Version actuelle : 1.0 Professionnelle
-Date de publication : Octobre 2025
-Dernière révision : Octobre 2025
 
 Historique :
 - v1.0 : Version initiale condensée (6 modules)

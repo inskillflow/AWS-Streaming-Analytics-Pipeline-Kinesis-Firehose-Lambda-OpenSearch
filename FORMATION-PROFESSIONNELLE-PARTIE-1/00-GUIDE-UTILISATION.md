@@ -10,8 +10,7 @@
 Cette formation professionnelle condense **31 chapitres** en **6 modules essentiels** focalisés sur l'ingénierie des données en streaming avec AWS.
 
 **Durée totale** : 5h15 de cours + 3h50 d'évaluations  
-**Format** : Minimaliste, professionnel, sans emojis  
-**Style** : GitHub-ready avec diagrammes Mermaid
+**Style** : Diagrammes Mermaid professionnels
 
 ---
 

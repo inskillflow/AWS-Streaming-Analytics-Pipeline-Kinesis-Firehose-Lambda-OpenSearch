@@ -1,17 +1,14 @@
-================================================================================
-                            MODULE 5
-                  SECURITE ET ENCRYPTION
-================================================================================
+# MODULE 5 - SECURITE ET ENCRYPTION
 
-Durée : 45 minutes
-Niveau : Intermédiaire
+**Durée** : 45 minutes  
+**Niveau** : Intermédiaire  
+**Objectifs** : Sécuriser une architecture streaming avec IAM, Cognito, encryption et audit
 
-================================================================================
-1. PRINCIPES DE SECURITE AWS
-================================================================================
+---
 
-1.1 Modèle de Responsabilité Partagée
---------------------------------------
+# 1. PRINCIPES DE SECURITE AWS
+
+## 1.1 Modèle de Responsabilité Partagée
 
 AWS RESPONSABLE DE :
 - Sécurité physique data centers
@@ -45,9 +42,7 @@ COUCHES ARCHITECTURE STREAMING :
 6. Conformité : Audit, logging
 
 
-================================================================================
 2. GESTION DES IDENTITES ET ACCES (IAM)
-================================================================================
 
 2.1 Composants IAM
 ------------------
@@ -142,9 +137,7 @@ AUDIT REGULIER :
 - Suppression permissions inutilisées
 
 
-================================================================================
 3. AUTHENTIFICATION AVEC AMAZON COGNITO
-================================================================================
 
 3.1 Architecture Cognito
 -------------------------
@@ -195,9 +188,7 @@ DUREES :
 - Sessions dashboard : configurables
 
 
-================================================================================
 4. ENCRYPTION DES DONNEES
-================================================================================
 
 4.1 Encryption en Transit
 --------------------------
@@ -288,9 +279,7 @@ OPENSEARCH :
 - TLS pour accès externe
 
 
-================================================================================
 5. SECURITE RESEAU
-================================================================================
 
 5.1 Amazon VPC
 --------------
@@ -333,9 +322,7 @@ USAGE STREAMING :
 Lambda dans VPC → Interface Endpoint → Kinesis (privé)
 
 
-================================================================================
 6. AUDIT ET CONFORMITE
-================================================================================
 
 6.1 AWS CloudTrail
 ------------------
@@ -388,9 +375,7 @@ CHECKLIST :
 - [ ] Audit accès périodique
 
 
-================================================================================
 7. GESTION DES SECRETS
-================================================================================
 
 7.1 AWS Secrets Manager
 ------------------------
@@ -422,9 +407,7 @@ TYPES :
 - SecureString (encryption KMS)
 
 
-================================================================================
 8. POINTS CLES DU MODULE
-================================================================================
 
 - Sécurité multicouche essentielle (défense en profondeur)
 - IAM contrôle permissions (principe moindre privilège)
@@ -435,9 +418,7 @@ TYPES :
 - Conformité = responsabilité partagée AWS/Client
 
 
-================================================================================
 9. EXERCICES DE REFLEXION
-================================================================================
 
 1. Concevez une politique IAM minimale pour EC2 envoyant logs à Kinesis.
 
@@ -450,5 +431,4 @@ TYPES :
 5. Architecturez un système HIPAA-compliant avec Kinesis et OpenSearch.
 
 
-================================================================================
 

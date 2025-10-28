@@ -1,17 +1,14 @@
-================================================================================
-                            MODULE 4
-              OPENSEARCH ET INDEXATION
-================================================================================
+# MODULE 4 - OPENSEARCH ET INDEXATION
 
-Durée : 60 minutes
-Niveau : Intermédiaire à Avancé
+**Durée** : 60 minutes  
+**Niveau** : Intermédiaire à Avancé  
+**Objectifs** : Maîtriser OpenSearch pour indexation, recherche et visualisation de données
 
-================================================================================
-1. INTRODUCTION A OPENSEARCH
-================================================================================
+---
 
-1.1 Historique et Positionnement
----------------------------------
+# 1. INTRODUCTION A OPENSEARCH
+
+## 1.1 Historique et Positionnement
 
 ORIGINE :
 - Fork d'Elasticsearch 7.10.2 (2021)
@@ -53,9 +50,7 @@ SHARD :
 - Permet distribution et parallélisation
 
 
-================================================================================
 2. CONCEPTS D'INDEXATION
-================================================================================
 
 2.1 Structure des Données
 --------------------------
@@ -141,9 +136,7 @@ ETATS CLUSTER :
 - Red : certains primary manquants
 
 
-================================================================================
 3. OPERATIONS D'INDEXATION
-================================================================================
 
 3.1 Création d'Index
 --------------------
@@ -258,9 +251,7 @@ DATE HISTOGRAM :
 }
 
 
-================================================================================
 4. OPENSEARCH DASHBOARDS
-================================================================================
 
 4.1 Index Pattern
 -----------------
@@ -326,9 +317,7 @@ CAS D'USAGE :
 - Reporting (management)
 
 
-================================================================================
 5. PERFORMANCE ET OPTIMISATION
-================================================================================
 
 5.1 Dimensionnement Cluster
 ----------------------------
@@ -398,9 +387,7 @@ OUTILS :
 - CloudWatch (service managé AWS)
 
 
-================================================================================
 6. LIMITES ET CONTRAINTES
-================================================================================
 
 6.1 Limites Amazon OpenSearch Service
 --------------------------------------
@@ -434,9 +421,7 @@ FAIRE :
 - Index template pour standardisation
 
 
-================================================================================
 7. ALTERNATIVES A OPENSEARCH
-================================================================================
 
 ELASTICSEARCH :
 [+] Fonctionnalités avancées (ML, APM)
@@ -456,9 +441,7 @@ TYPESENSE :
 [-] Moins de fonctionnalités analytics
 
 
-================================================================================
 8. POINTS CLES DU MODULE
-================================================================================
 
 - OpenSearch = fork Elasticsearch pour indexation et recherche
 - Documents JSON organisés en index
@@ -469,9 +452,7 @@ TYPESENSE :
 - Monitoring essentiel pour production
 
 
-================================================================================
 9. EXERCICES DE REFLEXION
-================================================================================
 
 1. Dimensionnez un cluster pour 1 TB de logs avec recherches fréquentes pendant
    7 jours puis archivage.
@@ -485,5 +466,4 @@ TYPESENSE :
 5. Comparez OpenSearch et Algolia pour recherche produits e-commerce.
 
 
-================================================================================
 

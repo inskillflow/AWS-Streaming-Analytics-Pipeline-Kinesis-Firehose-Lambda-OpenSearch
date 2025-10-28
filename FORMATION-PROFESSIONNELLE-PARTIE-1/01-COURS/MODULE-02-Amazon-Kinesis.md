@@ -1,17 +1,14 @@
-================================================================================
-                            MODULE 2
-                      AMAZON KINESIS
-================================================================================
+# MODULE 2 - AMAZON KINESIS
 
-Durée : 60 minutes
-Niveau : Intermédiaire
+**Durée** : 60 minutes  
+**Niveau** : Intermédiaire  
+**Objectifs** : Maîtriser Kinesis Data Streams et Data Firehose, choisir la bonne solution
 
-================================================================================
-1. PRESENTATION D'AMAZON KINESIS
-================================================================================
+---
 
-1.1 Vue d'Ensemble
-------------------
+# 1. PRESENTATION D'AMAZON KINESIS
+
+## 1.1 Vue d'Ensemble
 
 Amazon Kinesis est une suite de services pour collecter, traiter et analyser
 des données en streaming temps réel à grande échelle.
@@ -25,40 +22,36 @@ FAMILLE DE SERVICES :
 FOCUS DE CE MODULE : Data Streams et Data Firehose
 
 
-1.2 Positionnement
-------------------
+## 1.2 Positionnement
 
-ALTERNATIVE MANAGEE A : Apache Kafka, RabbitMQ
-AVANTAGES AWS : Intégration native, pas de gestion infrastructure
-COMPROMIS : Moins de flexibilité que Kafka
+**Alternative managée à** : Apache Kafka, RabbitMQ  
+**Avantages AWS** : Intégration native, pas de gestion infrastructure  
+**Compromis** : Moins de flexibilité que Kafka
 
+---
 
-================================================================================
-2. KINESIS DATA STREAMS
-================================================================================
+# 2. KINESIS DATA STREAMS
 
-### 2.1 Architecture et Concepts
+## 2.1 Architecture et Concepts
 
 > **Définition** : Service de streaming distribué permettant la collecte et le traitement de données en temps réel avec rétention.
 
 ```mermaid
 graph TB
-    subgraph "KINESIS DATA STREAMS"
-        subgraph "STREAM"
-            S1[Shard 1<br/>1 MB/s write<br/>2 MB/s read]
-            S2[Shard 2<br/>1 MB/s write<br/>2 MB/s read]
-            S3[Shard 3<br/>1 MB/s write<br/>2 MB/s read]
-            S4[Shard N<br/>...]
-        end
+    subgraph STREAMS["KINESIS DATA STREAMS"]
+        S1[Shard 1<br/>1 MB/s write<br/>2 MB/s read]
+        S2[Shard 2<br/>1 MB/s write<br/>2 MB/s read]
+        S3[Shard 3<br/>1 MB/s write<br/>2 MB/s read]
+        S4[Shard N<br/>...]
     end
     
-    subgraph "PRODUCERS"
+    subgraph PRODUCERS["PRODUCERS"]
         P1[SDK AWS]
         P2[Agent Kinesis]
         P3[API PutRecord]
     end
     
-    subgraph "CONSUMERS"
+    subgraph CONSUMERS["CONSUMERS"]
         C1[Lambda]
         C2[KCL App]
         C3[Firehose]
@@ -72,10 +65,16 @@ graph TB
     S2 -->|Read| C2
     S3 -->|Read| C3
     
-    style S1 fill:#8c4fff
-    style S2 fill:#8c4fff
-    style S3 fill:#8c4fff
-    style S4 fill:#8c4fff
+    style S1 fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+    style S2 fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+    style S3 fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+    style S4 fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+    style P1 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style P2 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style P3 fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style C1 fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+    style C2 fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+    style C3 fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
 ```
 
 #### Composants Clés
@@ -136,12 +135,11 @@ Stream de transactions bancaires → Lambda (détection fraude)
                                  → Application analytics
 
 
-================================================================================
-3. KINESIS DATA FIREHOSE
-================================================================================
+---
 
-3.1 Architecture et Concepts
------------------------------
+# 3. KINESIS DATA FIREHOSE
+
+## 3.1 Architecture et Concepts
 
 DEFINITION :
 Service entièrement géré de livraison de données en streaming vers
@@ -222,11 +220,11 @@ EXEMPLE :
 Logs Apache → Firehose → Lambda (enrichissement géoloc) → OpenSearch
 
 
-================================================================================
-4. COMPARAISON DATA STREAMS VS DATA FIREHOSE
-================================================================================
+---
 
-### 4.1 Tableau Comparatif
+# 4. COMPARAISON DATA STREAMS VS DATA FIREHOSE
+
+## 4.1 Tableau Comparatif
 
 | Critère | **DATA STREAMS** | **DATA FIREHOSE** |
 |---------|------------------|-------------------|
@@ -303,12 +301,11 @@ IoT sensors → Data Streams → Lambda (alertes < 1s)
                           → Firehose → S3 (analyse historique)
 
 
-================================================================================
-5. CONFIGURATION ET BONNES PRATIQUES
-================================================================================
+---
 
-5.1 Data Streams - Dimensionnement
------------------------------------
+# 5. CONFIGURATION ET BONNES PRATIQUES
+
+## 5.1 Data Streams - Dimensionnement
 
 CALCUL SHARDS NECESSAIRES :
 
@@ -390,12 +387,11 @@ MONITORING :
 - Alertes sur anomalies
 
 
-================================================================================
-6. PATTERNS D'ARCHITECTURE
-================================================================================
+---
 
-6.1 Pattern : Fan-Out (Data Streams)
--------------------------------------
+# 6. PATTERNS D'ARCHITECTURE
+
+## 6.1 Pattern : Fan-Out (Data Streams)
 
 STRUCTURE :
 1 Producer → Data Streams → Multiple Consumers (Lambda, Firehose, Custom)
@@ -441,9 +437,9 @@ Transactions → Streams → Lambda → S3 (archivage toutes)
                                 → SNS (alertes fraude)
 
 
-================================================================================
-7. POINTS CLES DU MODULE
-================================================================================
+---
+
+# 7. POINTS CLES DU MODULE
 
 - Data Streams pour traitement temps réel strict et multiples consommateurs
 - Data Firehose pour livraison simple et managée vers destinations
@@ -454,9 +450,9 @@ Transactions → Streams → Lambda → S3 (archivage toutes)
 - Monitoring CloudWatch essentiel
 
 
-================================================================================
-8. EXERCICES DE REFLEXION
-================================================================================
+---
+
+# 8. EXERCICES DE REFLEXION
 
 1. Votre application doit traiter 10 MB/s de données avec 2 consommateurs.
    Combien de shards Data Streams provisionneriez-vous ?
@@ -473,5 +469,4 @@ Transactions → Streams → Lambda → S3 (archivage toutes)
    Firehose ou passage par Data Streams.
 
 
-================================================================================
 

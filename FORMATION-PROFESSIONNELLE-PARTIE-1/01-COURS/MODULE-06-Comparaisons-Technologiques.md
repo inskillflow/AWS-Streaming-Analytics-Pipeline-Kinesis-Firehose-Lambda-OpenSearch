@@ -1,17 +1,14 @@
-================================================================================
-                            MODULE 6
-              COMPARAISONS TECHNOLOGIQUES
-================================================================================
+# MODULE 6 - COMPARAISONS TECHNOLOGIQUES
 
-Durée : 60 minutes
-Niveau : Avancé
+**Durée** : 60 minutes  
+**Niveau** : Avancé  
+**Objectifs** : Comparer Kinesis, Kafka et alternatives, choisir la bonne technologie
 
-================================================================================
-1. KINESIS VS APACHE KAFKA
-================================================================================
+---
 
-1.1 Vue d'Ensemble
-------------------
+# 1. KINESIS VS APACHE KAFKA
+
+## 1.1 Vue d'Ensemble
 
 AMAZON KINESIS :
 - Service managé AWS
@@ -109,9 +106,7 @@ INCONVENIENTS :
 - Configuration Kafka requise
 
 
-================================================================================
 2. ALTERNATIVES DE STREAMING
-================================================================================
 
 2.1 Apache Pulsar
 -----------------
@@ -186,9 +181,7 @@ COMPARAISON KINESIS :
 - Bon pour organisations Azure-centric
 
 
-================================================================================
 3. ALTERNATIVES OPENSEARCH
-================================================================================
 
 3.1 Elasticsearch
 -----------------
@@ -281,9 +274,7 @@ INCONVENIENTS :
 - Pas pour log aggregation streaming
 
 
-================================================================================
 4. ARCHITECTURES LAMBDA VS KAPPA
-================================================================================
 
 4.1 Architecture Lambda
 -----------------------
@@ -354,9 +345,7 @@ KAPPA SI :
 - Simplicité valorisée
 
 
-================================================================================
 5. CRITERES DE CHOIX TECHNOLOGIQUE
-================================================================================
 
 5.1 Matrice de Décision
 ------------------------
@@ -414,9 +403,7 @@ Kinesis + Lambda + Algolia
 - Recherche utilisateur Algolia (performance)
 
 
-================================================================================
 6. TENDANCES ET EVOLUTION
-================================================================================
 
 6.1 Stream Processing Frameworks
 ---------------------------------
@@ -457,9 +444,7 @@ DATA LAKEHOUSE :
 - ACID sur object storage
 
 
-================================================================================
 7. POINTS CLES DU MODULE
-================================================================================
 
 - Kinesis simple et managé, Kafka flexible et puissant
 - MSK compromis entre les deux
@@ -469,9 +454,7 @@ DATA LAKEHOUSE :
 - Pas de solution universelle, évaluer cas par cas
 
 
-================================================================================
 8. EXERCICES DE REFLEXION
-================================================================================
 
 1. Votre entreprise migre vers AWS avec équipe Kafka expérimentée.
    Kinesis, MSK ou Kafka self-hosted ? Justifiez.
@@ -485,5 +468,4 @@ DATA LAKEHOUSE :
 5. Concevez architecture streaming multi-cloud (AWS + GCP).
 
 
-================================================================================
 

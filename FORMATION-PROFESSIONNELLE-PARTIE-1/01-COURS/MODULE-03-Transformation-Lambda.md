@@ -1,17 +1,14 @@
-================================================================================
-                            MODULE 3
-              TRANSFORMATION AVEC AWS LAMBDA
-================================================================================
+# MODULE 3 - TRANSFORMATION AVEC AWS LAMBDA
 
-Durée : 45 minutes
-Niveau : Intermédiaire
+**Durée** : 45 minutes  
+**Niveau** : Intermédiaire  
+**Objectifs** : Maîtriser Lambda pour transformation et enrichissement de données en streaming
 
-================================================================================
-1. AWS LAMBDA - CONCEPTS FONDAMENTAUX
-================================================================================
+---
 
-1.1 Définition
---------------
+# 1. AWS LAMBDA - CONCEPTS FONDAMENTAUX
+
+## 1.1 Définition
 
 AWS Lambda est un service de calcul serverless qui exécute du code en réponse
 à des événements sans nécessiter le provisionnement ou la gestion de serveurs.
@@ -38,9 +35,7 @@ COLD START vs WARM START :
 - Warm : environnement réutilisé, démarrage instantané
 
 
-================================================================================
 2. LAMBDA DANS LES PIPELINES DE STREAMING
-================================================================================
 
 2.1 Intégration avec Kinesis
 -----------------------------
@@ -90,9 +85,7 @@ VALIDATION :
 - Enrichissement statut qualité
 
 
-================================================================================
 3. ENRICHISSEMENT DE LOGS WEB - EXEMPLE PRATIQUE
-================================================================================
 
 3.1 Données Brutes Apache
 --------------------------
@@ -217,9 +210,7 @@ FONCTIONS AUXILIAIRES :
 - Gestion erreurs et logs CloudWatch
 
 
-================================================================================
 4. OPTIMISATION LAMBDA POUR STREAMING
-================================================================================
 
 4.1 Performance
 ---------------
@@ -296,9 +287,7 @@ EXEMPLE CALCUL :
 → Coût: ~30 USD/mois
 
 
-================================================================================
 5. ALTERNATIVES ET COMPARAISONS
-================================================================================
 
 5.1 Lambda vs Traitement Applicatif
 ------------------------------------
@@ -338,9 +327,7 @@ CHOIX :
 - Analytics : agrégations complexes, windowing
 
 
-================================================================================
 6. PATTERNS D'ARCHITECTURE
-================================================================================
 
 6.1 Pattern : Transformation Inline (Firehose)
 -----------------------------------------------
@@ -388,9 +375,7 @@ CONTRAINTES :
 - Complexité architecture
 
 
-================================================================================
 7. MONITORING ET OBSERVABILITE
-================================================================================
 
 7.1 Métriques CloudWatch
 -------------------------
@@ -437,9 +422,7 @@ CONFIGURER ALARMES SUR :
 - Throttles > 0
 
 
-================================================================================
 8. POINTS CLES DU MODULE
-================================================================================
 
 - Lambda serverless idéal pour transformations streaming
 - Intégration native avec Kinesis (Streams et Firehose)
@@ -449,9 +432,7 @@ CONFIGURER ALARMES SUR :
 - Trade-offs simplicité vs contrôle vs coût
 
 
-================================================================================
 9. EXERCICES DE REFLEXION
-================================================================================
 
 1. Votre Lambda traite 1000 records Kinesis en 30 secondes. Comment optimiser
    pour réduire les coûts ?
@@ -467,5 +448,4 @@ CONFIGURER ALARMES SUR :
 5. Architecturez un système de retry intelligent pour records échoués.
 
 
-================================================================================
 

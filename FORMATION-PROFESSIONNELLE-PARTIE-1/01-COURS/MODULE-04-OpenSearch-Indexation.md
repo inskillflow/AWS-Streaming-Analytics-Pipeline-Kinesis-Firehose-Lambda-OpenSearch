@@ -61,6 +61,8 @@ SHARD :
 --------------------------
 
 DOCUMENT JSON :
+
+```json
 {
   "host": "203.0.113.42",
   "datetime": "28/Oct/2025:10:15:30 +0000",
@@ -72,6 +74,7 @@ DOCUMENT JSON :
     "lon": 2.3522
   }
 }
+```
 
 CHAMPS :
 - Types simples : text, keyword, integer, date
@@ -172,19 +175,25 @@ PUT /apache_logs
 ---------------------------
 
 SINGLE DOCUMENT :
+
+```http
 POST /apache_logs/_doc
 {
   "host": "203.0.113.42",
   "datetime": "28/Oct/2025:10:15:30 +0000",
   ...
 }
+```
 
 BULK INDEXING :
+
+```http
 POST /_bulk
 {"index": {"_index": "apache_logs"}}
 {"host": "203.0.113.42", ...}
 {"index": {"_index": "apache_logs"}}
 {"host": "198.51.100.10", ...}
+```
 
 Bulk recommandé pour performance (batches de 1000-5000 documents).
 

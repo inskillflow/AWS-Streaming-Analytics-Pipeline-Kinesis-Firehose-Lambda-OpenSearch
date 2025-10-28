@@ -3,37 +3,69 @@
               ARCHITECTURE DE STREAMING AWS
 ================================================================================
 
-Durée : 45 minutes
-Niveau : Fondamental
+**Durée** : 45 minutes  
+**Niveau** : Fondamental  
+**Objectifs** : Maîtriser les concepts de base du streaming et l'architecture AWS
 
 ================================================================================
-1. INTRODUCTION AU STREAMING DE DONNEES
+## 1. INTRODUCTION AU STREAMING DE DONNEES
 ================================================================================
 
-1.1 Les Cinq V des Mégadonnées
--------------------------------
+### 1.1 Les Cinq V des Mégadonnées
 
-Volume      : Quantité massive de données générées
-Variété     : Différents types et formats de données
-Vélocité    : Rapidité de génération et traitement (focus streaming)
-Véracité    : Qualité et fiabilité des données
-Valeur      : Extraction d'insights exploitables
+```mermaid
+graph TB
+    subgraph "Les 5 V du Big Data"
+        A[Volume<br/>Quantité massive]
+        B[Variété<br/>Formats divers]
+        C[Vélocité<br/>Rapidité temps réel]
+        D[Véracité<br/>Qualité données]
+        E[Valeur<br/>Insights exploitables]
+    end
+    C -.->|Focus Streaming| F[SOLUTION<br/>Architecture<br/>Temps Réel]
+    
+    style C fill:#ff6b6b
+    style F fill:#51cf66
+```
 
-Le streaming répond spécifiquement au défi de la VELOCITE.
+| V | Description | Impact Streaming |
+|---|-------------|------------------|
+| **Volume** | Quantité massive de données | Scalabilité horizontale requise |
+| **Variété** | Différents types et formats | Parsing et transformation flexibles |
+| **Vélocité** | Rapidité génération/traitement | **Cœur du streaming (< 1s)** |
+| **Véracité** | Qualité et fiabilité | Validation en temps réel |
+| **Valeur** | Insights exploitables | Décisions business instantanées |
+
+> **Point clé** : Le streaming répond spécifiquement au défi de la VELOCITE.
 
 
-1.2 Streaming vs Traitement Batch
-----------------------------------
+### 1.2 Streaming vs Traitement Batch
 
-STREAMING (Temps Réel)
-- Traitement continu des données dès leur arrivée
-- Latence : millisecondes à secondes
-- Cas d'usage : détection fraude, monitoring, IoT
+```mermaid
+graph LR
+    subgraph "STREAMING - Temps Réel"
+        A[Données<br/>arrivent] -->|< 1s| B[Traitement<br/>immédiat]
+        B --> C[Résultats<br/>instantanés]
+    end
+    
+    subgraph "BATCH - Par Lots"
+        D[Données<br/>accumulées] -->|Heures/Jours| E[Traitement<br/>périodique]
+        E --> F[Rapports<br/>différés]
+    end
+    
+    style B fill:#4ecdc4
+    style C fill:#51cf66
+    style E fill:#ffd93d
+    style F fill:#ff6b6b
+```
 
-BATCH (Par lots)
-- Traitement périodique de volumes de données
-- Latence : minutes à heures
-- Cas d'usage : rapports quotidiens, analyses historiques
+| Critère | STREAMING (Temps Réel) | BATCH (Par Lots) |
+|---------|------------------------|------------------|
+| **Traitement** | Continu dès arrivée | Périodique par volumes |
+| **Latence** | Millisecondes à secondes | Minutes à heures |
+| **Complexité** | Moyenne-élevée | Faible-moyenne |
+| **Cas d'usage** | Détection fraude, monitoring IoT, alertes | Rapports quotidiens, analyses historiques, ETL |
+| **Technos** | Kinesis, Kafka, Flink | Spark Batch, EMR, Glue |
 
 
 ================================================================================
@@ -131,76 +163,116 @@ CARACTERISTIQUES :
 
 
 ================================================================================
-3. ARCHITECTURE DE REFERENCE
+## 3. ARCHITECTURE DE REFERENCE
 ================================================================================
 
-3.1 Workflow Complet
---------------------
+### 3.1 Workflow Complet
 
-[1] GENERATION
-    Utilisateur → Serveur Web (EC2) → Logs d'accès
-
-[2] COLLECTE
-    Agent Kinesis → Kinesis Data Firehose
-
-[3] TRANSFORMATION
-    Firehose → Lambda → Enrichissement données
-
-[4] STOCKAGE
-    Lambda → Firehose → OpenSearch Service
-
-[5] VISUALISATION
-    OpenSearch Dashboards (via Cognito)
-
-[6] MONITORING
-    CloudWatch Logs (tous les composants)
-
-
-3.2 Flux de Données Détaillé
------------------------------
-
-ETAPE 1 : Génération
-- Action utilisateur sur site web
-- EC2 enregistre log Apache
-- Format : IP, timestamp, page, user-agent
-
-ETAPE 2 : Ingestion
-- Agent Kinesis lit logs en continu
-- Envoi vers Firehose (Direct PUT)
-- Bufferisation avant transformation
-
-ETAPE 3 : Enrichissement
-- Firehose déclenche Lambda
-- Lambda ajoute : géolocalisation, OS, navigateur, type appareil
-- Retour vers Firehose
-
-ETAPE 4 : Indexation
-- Firehose envoie à OpenSearch
-- Création documents JSON
-- Indexation selon mappings définis
-
-ETAPE 5 : Analyse
-- Requêtes sur index OpenSearch
-- Agrégations et statistiques
-- Dashboards temps réel
+```mermaid
+flowchart TB
+    subgraph "GENERATION"
+        U[👤 Utilisateur] -->|HTTP| EC2[EC2<br/>Serveur Web]
+        EC2 -->|Logs| AG[Agent<br/>Kinesis]
+    end
+    
+    subgraph "COLLECTE & TRANSFORMATION"
+        AG -->|Stream| KDF[Kinesis<br/>Data Firehose]
+        KDF -->|Trigger| L[Lambda<br/>Enrichissement]
+        L -->|Données<br/>enrichies| KDF
+    end
+    
+    subgraph "STOCKAGE & ANALYSE"
+        KDF -->|Index| OS[OpenSearch<br/>Service]
+        OS -->|Query| OSD[OpenSearch<br/>Dashboards]
+    end
+    
+    subgraph "SECURITE & MONITORING"
+        COG[Cognito<br/>Auth] -->|Accès| OSD
+        CW[CloudWatch<br/>Logs] -.->|Monitor| KDF
+        CW -.->|Monitor| L
+        IAM[IAM<br/>Policies] -.->|Control| EC2
+    end
+    
+    style EC2 fill:#ff9900
+    style KDF fill:#8c4fff
+    style L fill:#ff9900
+    style OS fill:#4b8bbe
+    style OSD fill:#4b8bbe
+    style COG fill:#dd344c
+    style CW fill:#cc2264
+```
 
 
-3.3 Composants de Sécurité
----------------------------
+### 3.2 Flux de Données Détaillé
 
-IAM (Identity and Access Management)
-- Rôles pour EC2, Lambda, Firehose
-- Politiques de permissions granulaires
-- Principe du moindre privilège
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as Utilisateur
+    participant W as Web Server (EC2)
+    participant A as Agent Kinesis
+    participant F as Firehose
+    participant L as Lambda
+    participant O as OpenSearch
+    participant D as Dashboards
+    
+    U->>W: Action (clic, navigation)
+    W->>W: Génère log Apache
+    W->>A: Écrit log (IP, timestamp, page)
+    A->>F: Stream continu
+    F->>F: Buffer (60s / 1MB)
+    F->>L: Trigger transformation
+    L->>L: Enrichissement<br/>(géoloc, OS, browser)
+    L-->>F: Données enrichies
+    F->>O: Indexation JSON
+    O->>D: Disponible analyse
+    D->>U: Visualisation temps réel
+```
 
-COGNITO
-- Pool d'utilisateurs
-- Authentification dashboard
-- Gestion sessions
+#### Détail des Étapes
 
-ENCRYPTION
-- En transit : TLS/SSL
-- Au repos : AWS KMS
+| Étape | Composant | Action | Durée | Output |
+|-------|-----------|--------|-------|--------|
+| **1** | Utilisateur/EC2 | Génération log Apache | < 1ms | `IP, timestamp, page, user-agent` |
+| **2** | Agent Kinesis | Collecte continu| < 100ms | Stream vers Firehose |
+| **3** | Firehose | Buffer & trigger Lambda | 60s | Batch de records |
+| **4** | Lambda | Enrichissement données | 100-500ms | JSON enrichi |
+| **5** | OpenSearch | Indexation | < 1s | Document indexé |
+| **6** | Dashboards | Visualisation | Instantané | Graphiques temps réel |
+
+
+### 3.3 Composants de Sécurité
+
+```mermaid
+graph TD
+    subgraph "Couches de Sécurité"
+        A[IAM<br/>Autorisations] --> B[Cognito<br/>Authentification]
+        B --> C[Encryption<br/>TLS/SSL + KMS]
+        C --> D[CloudTrail<br/>Audit]
+    end
+    
+    A -.->|Rôles| E[EC2]
+    A -.->|Rôles| F[Lambda]
+    A -.->|Rôles| G[Firehose]
+    B -.->|Auth| H[Dashboards]
+    C -.->|Protect| I[Data in Transit]
+    C -.->|Protect| J[Data at Rest]
+    
+    style A fill:#dd344c
+    style B fill:#ff9900
+    style C fill:#8c4fff
+    style D fill:#4b8bbe
+```
+
+#### Tableau de Sécurité
+
+| Composant | Rôle | Technologies | Best Practice |
+|-----------|------|--------------|---------------|
+| **IAM** | Autorisations | Rôles, Politiques | Moindre privilège |
+| **Cognito** | Authentification | User Pools, MFA | Rotation passwords |
+| **KMS** | Encryption clés | CMK, Auto-rotation | Key policies strictes |
+| **CloudTrail** | Audit | Logs API | Stockage S3 sécurisé |
+| **VPC** | Isolation réseau | Security Groups | Principe zero-trust |
 
 
 ================================================================================

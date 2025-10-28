@@ -1,7 +1,8 @@
-# FORMATION COMPLETE - PARTIES 1 & 2
-## INGENIERIE DES DONNEES AWS
+# FORMATION COMPLETE
+## INGENIERIE DES DONNEES AWS - STREAMING & ETL BATCH
 
-> Vue d'ensemble complète des deux formations complémentaires
+**FORMATION 1** : AWS-Streaming-Analytics-Pipeline-Kinesis-Firehose-Lambda-OpenSearch  
+**FORMATION 2** : AWS-ETL-Batch-Pipeline-Step-Functions-Glue-Athena-Parquet
 
 ---
 
